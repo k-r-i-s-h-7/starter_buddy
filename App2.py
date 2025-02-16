@@ -1,5 +1,4 @@
 
-from langchain_community.document_loaders import PyPDFLoader,word_document
 from flask import Flask,request,render_template
 from langchain_core.chat_history import BaseChatMessageHistory
 from markdown_it import MarkdownIt
@@ -9,11 +8,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 # from langchain_community.vectorstores import FAISS
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.output_parsers import StrOutputParser
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.tools import DuckDuckGoSearchResults
 # import streamlit as st
 from langchain_core.tools import Tool
+from langchain_core.output_parsers import StrOutputParser
 
 from duckduckgo_search import DDGS
 # from langchain_community.document_loaders import PyPDFLoader,word_document
@@ -55,17 +53,26 @@ prompt = ChatPromptTemplate(
     ]
 )
 def system2():
-    system = (
+    system2 = (
             
-            "Also the chat history will be given, give appropriate answer based on it"
+            """You are a web researcher, the user is trying to validate his software startup idea, Based on the user query, 
+            make 4 Search Engine Queries such that it tries to find similar websites or software and search according to them
+            Then based on the metadata of the websites displayed validate the idea provided by the user"""
     )
-    return system
+    prompt2 = ChatPromptTemplate([
+        ("system",system2),
+        ("human","{input}")
+    ]
+    )
+    return prompt2
 
 def get_chain():
     chain = create_retrieval_chain(llm=llm,tools=search_tool,parser=parser,prompt=prompt) 
     return chain
 def get_chain2():
-
+    prompt2=system2()
+    chain2 = create_retrieval_chain(llm=llm,tools=search_tool,parser=parser,prompt=prompt2) 
+    return chain2
 app =Flask(__name__)
 
 Chat_history = []
@@ -79,19 +86,24 @@ def Chatot():
 
     if request.method=="POST":
         input  = request.form.get("input")
-        file_in = request.files.get("file")
+        # file_in = request.files.get("file")
         new_chat = request.form.get("new_chat")
+        validate_idea = request.form.get("validate_idea")
 
         if new_chat:
-            print("entered if loop")
+            
             clear()
+            content = []
             return render_template("pagebase.html")
         
         
         if input:
             # rand_text= "  "
             # content.append((rand_text))
-            chain = get_chain()
+            if validate_idea:
+                chain= get_chain2()
+            else:
+                chain = get_chain()
             # response = chain()
             response = chain.invoke({"input":input,"history":Chat_history})
             parsed = md.render(response.content)
