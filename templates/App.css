@@ -1,0 +1,146 @@
+/* App.css */
+:root {
+    --primary-dark: #1500b1e7;
+    --primary-light: #000000;
+    --button-bg: rgba(25, 25, 75, 0.6);
+    --button-hover: rgba(35, 35, 85, 0.8);
+    --text-color: #ffffff;
+    --container-bg: rgba(25, 25, 75, 0.4);
+  }
+  
+  * {
+    box-sizing: border-box; /* Ensures padding and border stay within element width */
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; /* Remove padding from the body */
+    background: linear-gradient(100deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+    min-height: 100vh;
+    color: var(--text-color);
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    overflow-x: hidden; /* Prevents body from overflowing horizontally */
+  }
+  
+  .container {
+    width: 80vw; /* Set container width to 80% of the viewport width */
+    padding: 20px; /* Add padding around the content */
+    background-color: var(--container-bg);
+    border-radius: 8px; /* Rounded corners for style */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    margin-top: 100px; /* Add top margin to provide space for the navbar */
+  }
+  
+  h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-color);
+    font-size: 1.8rem;
+  }
+  
+  
+  nav {
+    background-color: var(--button-bg);
+    padding: 1rem;
+    text-align: center;
+    padding: 15px;
+    position: fixed; /* Fix the navbar at the top */
+    width: 100%;
+    top: 0; /* Position it at the top */
+    left: 0; /* Align it with the left */
+    
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: left;
+    gap: 1rem;
+  }
+  
+  nav ul li {
+    display: inline-block;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    background-color: var(--button-bg);
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+  }
+  
+  
+  
+  
+  /* Form styles for AddDistributor component */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  input, select, button {
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+  }
+  
+  input:focus, select:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(35, 35, 85, 0.7);
+  }
+  
+  button {
+    cursor: pointer;
+    background-color: var(--button-bg);
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
+  }
+  
+  /* Search results styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  div ol li {
+    
+    padding: 10px;
+  }
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  th {
+    background-color: var(--button-bg);
+  }
+  
+  tr:hover {
+    background-color: rgba(35, 35, 85, 0.3);
+  }
